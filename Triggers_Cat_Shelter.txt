@@ -1,0 +1,30 @@
+DELIMITER $$
+
+CREATE TRIGGER trg_cats_parameters 
+BEFORE INSERT ON cats_parameters
+FOR EACH ROW 
+BEGIN
+	DECLARE count_rows INT;
+    
+	IF NEW.Height <= 0 OR NEW.HEIGHT >= 200 THEN 
+		SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Podaj poprawną wysokość kotka!';
+    END IF;
+    
+    IF NEW.Weight <= 0 OR NEW.Weight >= 200 THEN 
+		SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Podaj poprawną wagę kotka!';
+    END IF;
+    
+    SELECT COUNT(*) INTO count_rows
+    FROM cats_parameters
+    WHERE Id_Cats = NEW.Id_Cats;
+    
+    IF count_rows > 0 THEN
+		SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Dla tego kota parametry juz istnieja!';
+    END IF;
+
+END $$
+
+DELIMITER ; 

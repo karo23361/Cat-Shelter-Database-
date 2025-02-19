@@ -1,0 +1,47 @@
+DELIMITER $$
+
+create procedure add_new_cat(
+IN p_Name varchar(50),
+IN p_Age int,
+IN p_Gender ENUM('Male', 'Female', 'Unknown')
+)
+
+BEGIN 
+	DECLARE v_CatID INT;
+    
+    -- CATS
+    insert into cats(Name, Age, Gender) 
+    values(p_Name, p_Age, p_Gender);
+    
+    set v_CatID = LAST_INSERT_ID();
+    
+    -- CATS PARAMETERS
+    INSERT INTO cats_parameters(Id_Cats, Height, Weight)
+    values(v_CatID, NULL, NULL);
+    
+    -- VETERINARY_CARE
+    insert into veterinary_care(Id_Cats, Vaccinations,
+    Sterilization, Deworming) values(v_CatID,0,0,0);
+    
+    -- STAYS
+    insert into stays(Id_Cats, Admission_date, 
+    Admission_reason, Status) values(v_CatID, CURDATE(),
+    'New arrival', 'Shelter');
+    
+    -- DIET
+    insert into diet(Id_Cats, Diet_type, Wet_food, Dry_food,
+    Special_diet) values(v_CatID, 'regular', 0, 0, '');
+    
+    -- CHARACTERISTICS
+    INSERT INTO characteristics (Id_Cats, 
+    Friendly_with_children, Friendly_with_dogs, 
+    Friendly_with_cats, Energetic, Likes_cuddles, 
+    Additional_notes)
+    VALUES (v_CatID, 0, 0, 0, 0, 0, '');
+    
+    select c_CatID AS NEW_Cat_ID;
+    
+END $$
+
+
+DELIMITER ;
