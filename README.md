@@ -6,3 +6,5 @@ I used Xampp (Apache + MySQL) to create the base. I am using MySQL workbench for
 EER Database Diagram. 
 ![image](https://github.com/user-attachments/assets/d5928f57-f96f-42b0-957a-583044df93e8)
 
+I've attached Trigger, Procedure files. 
+
