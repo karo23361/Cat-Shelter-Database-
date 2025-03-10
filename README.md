@@ -1,4 +1,4 @@
-# Cat-Shelter-Database-
+# Cat-Shelter-Database
 Cat Shelter Database project during creation. 
 
 I used Xampp (Apache + MySQL) to create the base. I am using MySQL workbench for easier maintenance. I am currently working on Triggers, Procedures and Functions that I will use on the site.
